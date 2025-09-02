@@ -1,13 +1,21 @@
-import { useState } from 'react'
-import { StyleSheet, Text, TextInput, Pressable } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { useState } from 'react';
+import { StyleSheet, Text, TextInput, Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useGoals } from '../../hooks/useGoals';  // Adjust path as necessary
 
 const Create = () => {
-  const [goal, setGoal] = useState('')
-  
-  const handleSubmit = async () => {
+  const [goal, setGoal] = useState('');
+  const { createGoal } = useGoals();  // This works if the component is within GoalsProvider
 
-  }
+  const handleSubmit = async () => {
+    if (goal.trim()) {
+      await createGoal({
+        goal,
+        progress: 0,  // Default progress is 0
+      });
+      setGoal('');  // Clear the input field after submitting
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -21,13 +29,13 @@ const Create = () => {
       />
 
       <Pressable onPress={handleSubmit} style={styles.button}>
-        <Text style={{color: 'white'}}>Add New Goal</Text>
+        <Text style={{ color: 'white' }}>Add New Goal</Text>
       </Pressable>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Create
+export default Create;
 
 const styles = StyleSheet.create({
   container: {
@@ -50,5 +58,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#216bccff',
     color: 'white',
     borderRadius: 8,
-  }
-})
+  },
+});

@@ -1,9 +1,12 @@
 import { Tabs } from 'expo-router'
 import { Ionicons } from "@expo/vector-icons"
+import Goals from '.'
+import { GoalsProvider } from '../../contexts/GoalsContext'
 
 export default function GoalsLayout() {
 
   return (
+    <GoalsProvider>
     <Tabs
       screenOptions={{
         headerShown: false,
@@ -37,5 +40,6 @@ export default function GoalsLayout() {
         }}
       />
     </Tabs>
+    </GoalsProvider>
   )
 }
